@@ -1,6 +1,22 @@
 const Employee = require('../models/employee');
 
 
+const getAllEmployee=async(req,res)=>{
+
+   try {
+    const result = await Employee.find({});
+    res.status(200).json({
+        success:true,
+        data:result
+    });
+   } catch (err) {
+    res.status(400).json({
+        success: false,
+        message: 'Data is not getting',
+        error: err.message
+    })
+   }
+}
 const saveEmployee=async(req,res)=>{
   
     try {
@@ -31,6 +47,6 @@ await employee.save();
 
 
 module.exports ={
-    
+    getAllEmployee,
     saveEmployee
 }
