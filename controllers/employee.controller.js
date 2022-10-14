@@ -1,6 +1,4 @@
-const Employee = require('../models/employee');
-const { getEmployeeService } = require('../service/employee.service');
-
+const { getEmployeeService, createEmployeeService } = require('../service/employee.service');
 
 const getAllEmployee=async(req,res)=>{
 
@@ -23,16 +21,13 @@ const saveEmployee=async(req,res)=>{
   
     try {
 
+        await createEmployeeService(req.body);
 
-const employee = new Employee(req.body);
-await employee.save();
+        res.status(200).json({
+            success:true,
+            message:`Successfully data inserted`
+        })
 
-    res.status(200).json({
-        success:true,
-        message:`Successfully data inserted`
-    })
-    
-    
     } catch (err) {
 
         res.status(400).json({
@@ -44,8 +39,6 @@ await employee.save();
     }
 
 }
-
-
 
 
 module.exports ={
